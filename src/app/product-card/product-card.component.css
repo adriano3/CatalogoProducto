@@ -1,0 +1,11 @@
+.product-name{
+  text-align: center;
+}
+.productoitem{
+  border-style: solid;
+  padding: 10px;
+}
+.imagenes{
+  width: 200px;
+  height: 200px;
+}
