@@ -7,7 +7,7 @@ import { Product } from '../Model/Product.model';
 export class ProductService {
 
   //constructor() { }
-    private products = [
+    private products : Product [] = [
     {
       id: 1,
       name: 'Tennis Vazza original',
@@ -30,7 +30,7 @@ export class ProductService {
       description: 'Perfecto para deporte y uso diario'
     }
   ];
-private cart: any[]=[];
+//private cart: any[]=[];
   getProducts() {
     return this.products; // Retorna la lista de productos
   }
@@ -44,26 +44,22 @@ private cart: any[]=[];
   }
 
   //  Método para agregar productos al carrito
-  addToCart(product: Product) {
+ addToCart(product: Product) {
   const cart = this.getCartItems();
   const existingProduct = cart.find(p => p.id === product.id);
 
   if (existingProduct) {
-    existingProduct.quantity = (existingProduct.quantity || 1) + 1; //  Aumenta cantidad si el producto ya está en el carrito
+    existingProduct.quantity = (existingProduct.quantity || 0) + 1;
   } else {
-    product.quantity = 1; //  Agrega cantidad inicial
+    product.quantity = 1; 
     cart.push(product);
   }
 
   localStorage.setItem('cart', JSON.stringify(cart));
-  console.log(`Producto agregado: ${product.name}`);
 }
 
-  //  Método para eliminar productos del carrito
   removeFromCart(productId: number) {
-    let cart = this.getCartItems();
-    cart = cart.filter(product => product.id != productId);
+    let cart = this.getCartItems().filter(p => p.id !== productId);
     localStorage.setItem('cart', JSON.stringify(cart));
-    console.log('producto eliminado, Id: ${productId}');
   }
 }

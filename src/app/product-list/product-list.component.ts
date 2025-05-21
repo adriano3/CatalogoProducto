@@ -3,13 +3,8 @@ import { Component } from '@angular/core';
 import { ProductCardComponent } from '../product-card/product-card.component';
 import { ProductService } from '../services/product.service';
 import { CartService } from '../services/cart.service';
-interface Product {
-  id:number;
-  name: string;
-  imageUrl: string;
-  price:number;
-  description: string
-}
+import { Product } from '../Model/Product.model';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-product-list',
   standalone:true,
@@ -18,17 +13,26 @@ interface Product {
   styleUrl: './product-list.component.css'
 })
 export class ProductListComponent {
- products:Product[]=[];
- constructor(private productService: ProductService, private cartService: CartService){}
- ngOnInit(){
-  this.products = this.productService.getProducts();
- }
- addToCart( product: Product){
-  this.productService.addToCart(product);
- }
-  handleProductClick(selectedProduct: any) {
-    console.log('Producto seleccionado:', selectedProduct);
-    // Aquí puedes agregar lógica adicional, como mostrar detalles del producto,
-    // agregar el producto a un carrito de compra, etc.
+  products: Product[] = [];
+  filteredProducts: Product[] = [];
+
+  constructor(private productService: ProductService, private cartService: CartService, private router:Router) {}
+
+  ngOnInit() {
+    this.products = this.productService.getProducts();
+    this.filteredProducts = this.products;
+  }
+
+ searchProducts(event: Event) {
+  const inputValue = (event.target as HTMLInputElement).value; // 🔥 Cast explícito
+  this.filteredProducts = this.products.filter(p => p.name.toLowerCase().includes(inputValue.toLowerCase()));
+}
+
+  addToCart(product: Product) {
+    this.cartService.addToCart(product);
+  }
+
+  viewDetails(productId: number) {
+   this.router.navigate([`/producto/${productId}`]);
   }
 }

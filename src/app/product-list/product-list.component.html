@@ -1,18 +1,13 @@
-<!--
-<div class="product-list">
-      <app-product-card
-        *ngFor="let product of products"
-        [name]="product.name"
-        [imageUrl]="product.imageUrl"
-        [price]="product.price"
-        [description]="product.description"
-        (productClicked)="handleProductClick($event)">
-      </app-product-card>
- </div>
--->
 <h2>Lista de Productos</h2>
-<div *ngFor="let product of products">
-  <p>{{ product.name }} - {{ product.price }} USD</p>
-  <img [src]="product.imageUrl" width="100" />
-  <button (click)="addToCart(product)">Agregar al carrito</button>
+<input type="text" placeholder="Buscar productos..." (input)="searchProducts($event)">
+<div *ngFor="let product of filteredProducts">
+  <app-product-card
+    [id]="product.id"
+    [name]="product.name"
+    [imageUrl]="product.imageUrl"
+    [price]="product.price"
+    [description]="product.description"
+    (productClicked)="viewDetails(product.id)">
+  </app-product-card>
+   <button (click)="addToCart(product)">Agregar al carrito</button>
 </div>

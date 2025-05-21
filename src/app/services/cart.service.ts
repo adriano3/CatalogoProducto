@@ -5,16 +5,27 @@ import {Product} from '../Model/Product.model';
   providedIn: 'root'
 })
 export class CartService {
-private cart : Product[]=[];
-addToCart(product:Product){
-  this.cart.push(product);
-  console.log('Producto Agregado: ${product.name}');
-}
-removeFromCart(productId: number){
-  this.cart = this.cart.filter(product => product.id !== productId);
-  console.log('producto eliminado, Id: ${productId}');
-}
-getCartItems(): Product[]{
-  return this.cart;
-}
+  getCartItems(): Product[] {
+    const cartData = localStorage.getItem('cart');
+    return cartData ? JSON.parse(cartData) : [];
+  }
+
+  addToCart(product: Product) {
+    const cart = this.getCartItems();
+    const existingProduct = cart.find(p => p.id === product.id);
+
+    if (existingProduct) {
+      existingProduct.quantity = (existingProduct.quantity || 1) + 1;
+    } else {
+      product.quantity = 1;
+      cart.push(product);
+    }
+
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }
+
+  removeFromCart(productId: number) {
+    let cart = this.getCartItems().filter(p => p.id !== productId);
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }
 }

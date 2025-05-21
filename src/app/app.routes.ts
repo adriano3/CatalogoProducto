@@ -1,3 +1,7 @@
 import { Routes } from '@angular/router';
-
-export const routes: Routes = [];
+import { ProductListComponent } from './product-list/product-list.component';
+import { ProductDetailComponent } from './product-detail/product-detail.component';
+export const routes: Routes = [
+  { path: '', component: ProductListComponent },
+  { path: 'producto/:id', component: ProductDetailComponent }
+];
