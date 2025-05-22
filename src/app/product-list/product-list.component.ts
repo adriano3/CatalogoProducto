@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductCardComponent } from '../product-card/product-card.component';
 import { ProductService } from '../services/product.service';
 import { CartService } from '../services/cart.service';
-import { Product } from '../Model/Product.model';
+//import { Product } from '../Model/Product.model';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-product-list',
@@ -13,8 +13,9 @@ import { Router } from '@angular/router';
   styleUrl: './product-list.component.css'
 })
 export class ProductListComponent implements OnInit {
-  products: Product[] = [];
-  filteredProducts: Product[] = [];
+ products: any[] = [];
+filteredProducts: any[] = [];
+
   currentPage = 1;
   itemsPerPage = 5;
   errorMessage = '';
@@ -31,7 +32,13 @@ export class ProductListComponent implements OnInit {
   this.productService.getProducts().subscribe({
     next: (data) => {
       console.log('Productos recibidos:', data);
-      this.products = data;
+      this.products = data.map(product => ({
+        id: product.id,
+        name: product.name, //  Mapea `title` a `name`
+       imageUrl: product.imageUrl, //  Mapea `image` a `imageUrl`
+        price: product.price,
+        description: product.description
+      }));
       this.filteredProducts = [...this.products]; // 🔥 Inicializar lista filtrada
       this.updatePagination(); // 🔥 Aplicar paginación
       console.log("Productos cargados:", this.products); // 🔹 Verifica en la consola si llegan los datos
