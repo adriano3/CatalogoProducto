@@ -2,9 +2,11 @@
   align-content: center;
   text-align: center;
 }
-.product-list {
+.product-conten {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
   padding: 20px;
+  justify-content: center;
+  align-items: flex-start; 
 }

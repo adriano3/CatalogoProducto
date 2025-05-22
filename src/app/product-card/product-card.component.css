@@ -1,11 +1,14 @@
 .product-name{
   text-align: center;
 }
-.productoitem{
+.product-item {
+  width: 250px;
   border-style: solid;
   padding: 10px;
+  text-align: center;
 }
 .imagenes{
   width: 200px;
   height: 200px;
+  object-fit: cover;
 }

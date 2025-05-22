@@ -1,4 +1,4 @@
-<div class="producto-item" (click)="notifySelection()">
+<div class="product-item">
   <div class="product-name">
     <h3 (click)="goToDetails()">{{ name }}</h3>
   </div>
@@ -7,5 +7,6 @@
     <h4>Precio: {{ price }} USD</h4>
     <p>{{ description }}</p>
   </div>
+   <button (click)="addToCart()">Agregar al carrito</button>
 </div>
 

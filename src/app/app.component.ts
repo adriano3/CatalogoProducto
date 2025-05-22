@@ -8,7 +8,7 @@ import { ProductCardComponent } from "./product-card/product-card.component";
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, ProductListComponent, ProductCardComponent,CartComponent, RouterOutlet],
+  imports: [CommonModule, ProductListComponent, ProductCardComponent, CartComponent, RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

@@ -16,12 +16,23 @@ export class ProductDetailComponent {
   constructor(private route: ActivatedRoute, private productService: ProductService) {}
 
   ngOnInit() {
-    const productId = Number(this.route.snapshot.paramMap.get('id'));
-    this.product = this.productService.getProductById(productId);
-  }
-  addToCart(product: Product) {
-    this.productService.addToCart(product); 
-    console.log(`Producto agregado al carrito: ${product.name}`);
-  }
+  const productId = Number(this.route.snapshot.paramMap.get('id'));
+  this.productService.getProductById(productId).subscribe({
+    next: (data) => {
+      this.product = data;
+    },
+    error: () => {
+      console.error('Error al obtener el producto');
+    }
+  });
+}
+
+ addToCart(productId: number) {
+  this.productService.addToCart(productId).subscribe({
+    next: () => console.log('Producto agregado correctamente'),
+    error: () => console.error('Error al agregar al carrito')
+  });
+}
+
 }
 

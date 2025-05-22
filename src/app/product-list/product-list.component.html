@@ -1,13 +1,28 @@
 <h2>Lista de Productos</h2>
-<input type="text" placeholder="Buscar productos..." (input)="searchProducts($event)">
-<div *ngFor="let product of filteredProducts">
+
+<!--  Barra de búsqueda -->
+<div class="input-search">
+  <input type="text" placeholder="Buscar productos..." (input)="searchProducts($event)">
+</div>
+
+<!--  Contenedor para todos los productos -->
+<div class="product-container">
+  <p *ngIf="products.length === 0">No hay productos disponibles.</p> <!-- 🔥 Verifica si la lista está vacía -->
+
   <app-product-card
+    *ngFor="let product of filteredProducts"
     [id]="product.id"
     [name]="product.name"
     [imageUrl]="product.imageUrl"
     [price]="product.price"
     [description]="product.description"
-    (productClicked)="viewDetails(product.id)">
+    (productClicked)="viewDetails($event)">
   </app-product-card>
-   <button (click)="addToCart(product)">Agregar al carrito</button>
+</div>
+
+<!--  Paginación -->
+<div class="pagination">
+  <button (click)="prevPage()" [disabled]="currentPage === 1">Anterior</button>
+  <span>Página {{ currentPage }}</span>
+  <button (click)="nextPage()">Siguiente</button>
 </div>

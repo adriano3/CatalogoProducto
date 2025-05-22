@@ -1,6 +1,13 @@
-.product-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  padding: 20px;
+.product-name{
+  text-align: center;
 }
+ .input-search{
+  margin-bottom: 20px;
+ }
+.product-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* 🔥 Ajuste dinámico */
+  gap: 20px; /* 🔹 Espaciado entre tarjetas */
+  justify-content: center; /* 🔥 Centra los productos en la pantalla */
+}
+

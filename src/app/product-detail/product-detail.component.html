@@ -4,5 +4,5 @@
   <img [src]="product.imageUrl" width="200">
   <p>Precio: {{ product.price }} USD</p>
   <p>{{ product.description }}</p>
-  <button (click)="addToCart(product)">Agregar al carrito</button>
+ <button *ngIf="product" (click)="addToCart(product.id)">Agregar al carrito</button>
 </div>
